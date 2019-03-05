@@ -1,0 +1,71 @@
+version: '3.4'
+
+services:
+  broker-db:
+    container_name: broker-db
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+      - "${database_port_on_host}:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${database_sa_password}
+    volumes:
+      - broker-data:/var/opt/mssql/
+
+  discovery:
+    container_name: discovery
+    image: discovery-service:${service_version}
+    build: ./discovery
+    ports:
+      - "8082:8082"
+    links:
+      - broker-db
+    env_file:
+      - 'service_using_broker.env'
+
+  session:
+    container_name: session
+    image: session-service:${service_version}
+    build: ./session
+    ports:
+      - "8081:8081"
+    links:
+      - broker-db
+      - discovery
+    env_file:
+      - 'service_using_broker.env'
+    environment:
+      - contenturl=http://session:8081/content.svc
+
+  deployer:
+    container_name: deployer
+    image: deployer-service:${service_version}
+    build: ./deployer
+    ports:
+      - "8084:8084"
+    links:
+      - broker-db
+      - discovery
+    env_file:
+      - 'service_using_broker.env'
+    environment:
+      - deployerurl=http://deployer:8084/httpupload
+      - binaryPath=./binaries
+      - queuePath=./queue
+
+  preview:
+    container_name: preview
+    image: preview-service:${service_version}
+    build: ./preview
+    ports:
+      - "8083:8083"
+    links:
+      - broker-db
+      - discovery
+    env_file:
+      - 'service_using_broker.env'
+    environment:
+      - previewurl=http://preview:8083/preview.svc
+
+volumes:
+  broker-data:

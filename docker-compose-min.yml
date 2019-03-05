@@ -1,0 +1,77 @@
+version: '3.4'
+
+services:
+  broker-db:
+    container_name: broker-db
+    image: mcr.microsoft.com/mssql/server:latest
+    ports:
+      - "${database_port_on_host}:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${database_sa_password}
+    volumes:
+      - broker-data:/var/opt/mssql/
+
+  discovery:
+    container_name: discovery
+    image: discovery-service:${service_version}
+    build: ./discovery
+    ports:
+      - "8082:8082"
+    links:
+      - broker-db
+    env_file:
+      - 'service_using_broker.env'
+    # Requires authentication in 8.5
+    # healthcheck:
+      # test: curl --silent --fail http://discovery:8082/health
+      # interval: ${health_check_interval}
+      # timeout: ${health_check_timeout}
+      # retries: ${health_check_retries}
+
+  content:
+    container_name: content
+    image: content-service:${service_version}
+    build: ./content
+    ports:
+      - "8081:8081"
+    links:
+      - broker-db
+      - discovery
+    env_file:
+      - 'service_using_broker.env'
+    environment:
+      - contenturl=http://content:8081/content.svc
+    # Requires authentication in 8.5
+    # healthcheck:
+      # test: curl --silent --fail http://content:8081/health
+      # interval: ${health_check_interval}
+      # timeout: ${health_check_timeout}
+      # retries: ${health_check_retries}
+      # start_period: ${health_check_start}
+
+  deployer:
+    container_name: deployer
+    image: deployer-service:${service_version}
+    build: ./deployer
+    ports:
+      - "8084:8084"
+    links:
+      - broker-db
+      - discovery
+    env_file:
+      - 'service_using_broker.env'
+    environment:
+      - deployerurl=http://deployer:8084/httpupload
+      - binaryPath=./binaries
+      - queuePath=./queue
+    # Requires authentication in 8.5
+    # healthcheck:
+      # test: curl --silent --fail http://deployer:8084/health
+      # interval: ${health_check_interval}
+      # timeout: ${health_check_timeout}
+      # retries: ${health_check_retries}
+      # start_period: ${health_check_start}
+
+volumes:
+  broker-data:
