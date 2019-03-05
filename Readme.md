@@ -20,7 +20,6 @@ The following steps are needed for the initial setup of the containers:
    * Run `docker-compose up -d broker-db` in a command prompt from the root directory. This will start the database container with Microsoft SQL Server running on port 1434.
    * Run the following in PowerShell from the `Database\mssql` folder of your Tridion installation media (***Note:*** this can only be done on a Windows machine):
    `& '.\Install Content Data Store.ps1' -NonInteractive -DatabaseServer 'localhost,1434' -DatabaseName broker -AdministratorUserPassword '5STuiNhD#T6j' -DatabaseUserName broker_user -DatabaseUserPassword 'IDbC%h$F5i2M'`
-1. Run `docker-compose build` to build the images (only needed when the sources change)
 
 ## Starting the containers
 
