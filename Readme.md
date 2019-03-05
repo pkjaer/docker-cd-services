@@ -12,9 +12,10 @@ In addition to the files in this repository, you will also need the Tridion inst
 
 The following steps are needed for the initial setup of the containers:
 
-1. Clone the repository (or download the sources and extract them to a folder of your choice)
-1. Copy the `standalone` folder from the installation media to each of the service directories (e.g. copy `roles\discovery\standalone` into `docker-cd-services\discovery\`).
+1. Clone the repository -- or download it and extract to a folder of your choice.
+1. Copy the `standalone` folder from the installation media to each of the service directories (e.g. copy `release\discovery\standalone` into `docker-cd-services\discovery\`). 
 1. Add your `cd_licenses.xml` file to the `ext-config` folder of each service.
+1. Copy `discovery_registration.jar` from `release\discovery\registration` to the `discovery\ext-config` directory.
 1. Currently, the database image (`broker-db`) does not contain any Tridion databases. The easiest way to fix that is to start the container and then run the standard database installation script from your Tridion installation media:
    * Run `docker-compose up -d broker-db` in a command prompt from the root directory. This will start the database container with Microsoft SQL Server running on port 1434.
    * Run the following in PowerShell from the `Database\mssql` folder of your Tridion installation media (***Note:*** this can only be done on a Windows machine):
