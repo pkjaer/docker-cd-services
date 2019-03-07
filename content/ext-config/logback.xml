@@ -7,9 +7,24 @@
 			<pattern>%date %-5level %logger{0} - %message%n</pattern>
 		</encoder>
 	</appender>
+	
+    <appender name="rollingLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/sdl-service/logs/service_log.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date %-5level %logger{0} - %message%n</pattern>
+        </encoder>
+        <prudent>true</prudent>
+    </appender>	
 
     <!-- Loggers -->
+    <logger name="org.hibernate" level="WARN"/>
+	
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
+		<appender-ref ref="rollingLog"/>
     </root>
 </configuration>

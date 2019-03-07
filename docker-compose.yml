@@ -65,7 +65,17 @@ services:
     env_file:
       - 'service_using_broker.env'
     environment:
-      - previewurl=http://preview:8083/preview.svc
+      - previewurl=http://preview:8083/ws/preview.svc
 
+  website:
+    container_name: website
+    image: website-java:${service_version}
+    build: ./website-java
+    ports:
+      - "8888:8080"
+    links:
+      - session
+      - discovery
+  
 volumes:
   broker-data:

@@ -1,3 +1,5 @@
 standalone
 cd_licenses.xml
 discovery-registration.jar
+website-java/ext-lib/*.jar
+website-java/WEB-INF

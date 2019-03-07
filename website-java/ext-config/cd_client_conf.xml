@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceConfig 
+               CheckVersionCompatibility="false"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="schemas/cd_client_conf.xsd"
+			   ConnectionTimeout="${indexconnectiontimeout:-10000}"
+               ReadTimeout="${indexreadtimeout:-30000}"
+               WriteTimeout="${indexwritetimeout:-30000}"
+               MaxIdleConnections="${indexmaxidleconnections:-30}">
+
+    <DiscoveryService ServiceUri="http://discovery:8082/discovery.svc"/> 
+ 	<TokenService ClientId="cduser" ClientSecret="${cduserpassword:-encrypted:o/cgCBwmULeOyUZghFaKJA==}"/>
+ </ServiceConfig>

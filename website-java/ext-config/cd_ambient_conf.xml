@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Configuration Version="8.1"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="schemas/cd_ambient_conf.xsd">
+
+    <!-- Excluded Paths -->
+    <!-- You can add paths relative to the context path for which the Ambient Framework Filter shouldn't execute.
+    This is very probable to happen when you map the Ambient Framework Filter to /* path. -->
+    <ExcludedPaths>
+        <Path>/token.svc</Path>
+    </ExcludedPaths>
+
+    <!-- Claims for forwarding on to the Content Services -->
+    <ForwardedClaims CookieName="TAFContext">
+        <Claim Uri="taf:session:preview:preview_session"/>
+        <Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:browser"/>
+        <Claim Uri="taf:claim:ambientdata:footprintcartridge:acceptlanguage"/>
+        <Claim Uri="taf:claim:ambientdata:footprintcartridge:recurringvisitor"/>
+        <Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:os"/>
+        <Claim Uri="taf:claim:ambientdata:footprintcartridge:searchquery"/>
+        <Claim Uri="taf:claim:ambientdata:sessioncartridge:session:lifetime"/>
+        <Claim Uri="taf:claim:ambientdata:sessioncartridge:refererdomain"/>
+		<Claim Uri="taf:claim:audiencemanager:contact:segments"/>
+    </ForwardedClaims>
+
+    <!-- Cookies settings -->
+    <!--
+    <Cookies>
+        <CookieClaim DefaultValue="true" Name="CookieClaim"/>
+        <Cookie Type="Tracking" Name="myTrackingCookie" Path="/"/>
+        <Cookie Type="Session" Name="mySessionCookie" Path="/"/>
+        <Cookie Type="ADF" Name="TAFContext" />
+    </Cookies>
+    -->
+
+</Configuration>
