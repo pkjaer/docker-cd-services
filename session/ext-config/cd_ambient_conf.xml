@@ -1,0 +1,81 @@
+<Configuration Version="8.5"
+               xsi:noNamespaceSchemaLocation="schemas/cd_ambient_conf.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Security OAuthEnabled="${oauthenabled:-true}">
+        <RequestValidator>com.sdl.web.oauth.validator.OAuth2RequestValidator</RequestValidator>
+        <!--Ambient data framework claims forwarding is enabled for the requests coming from white listed IP addresses.-->
+        <!--<WhiteList>
+                    <IPAddresses>
+                        <Ip>200.0.0.0-255.0.0.0</Ip>
+                        <Ip>127.0.0.1</Ip>
+                    </IPAddresses>
+                </WhiteList>-->
+        <!--
+                    Ambient data framework claims forwarding is allowed only for claims listed in this section.
+                    IMPORTANT: 'taf:session:preview:preview_session' MUST be enabled for REST extension-web to work
+                 -->
+        <GloballyAcceptedClaims>
+                    <Claim Uri="taf:session:preview:preview_session"/>
+                    <Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:browser"/>
+                    <Claim Uri="taf:claim:ambientdata:footprintcartridge:acceptlanguage"/>
+                    <Claim Uri="taf:claim:ambientdata:footprintcartridge:recurringvisitor"/>
+                    <Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:os"/>
+                    <Claim Uri="taf:claim:ambientdata:footprintcartridge:searchquery"/>
+                    <Claim Uri="taf:claim:ambientdata:sessioncartridge:session:lifetime"/>
+                    <Claim Uri="taf:claim:ambientdata:sessioncartridge:refererdomain"/>
+                </GloballyAcceptedClaims>
+        <!-- Header and cookie validation options -->
+        <!--
+                    <HeaderValidation>
+                        <DigestKey>sample_passphrase</DigestKey>
+                        <GracePeriodEndDate>2016-01-01T12:00:00</GracePeriodEndDate>
+                    </HeaderValidation>
+                -->
+        <!-- Built-in authentication server's configuration. -->
+        <AuthenticationServer>
+            <SharedSecret>sample_passphrase</SharedSecret>
+        </AuthenticationServer>
+        <!-- Rules definition for read/write shielding of services. -->
+        <Rules Enabled="${oauthenabled:-true}"/>
+    </Security>
+    <!-- Excluded Paths -->
+    <!-- You can add paths relative to the context path for which the Ambient Framework Filter shouldn't execute.
+        This is very probable to happen when you map the Ambient Framework Filter to /* path.
+        You may want to exclude, for example, the path with which the upload servlet is mapped to. -->
+    <ExcludedPaths>
+        <!--
+                   <Path>/token.svc</Path>
+                -->
+    </ExcludedPaths>
+    <Cartridges>
+        <!-- Example cartridge definition -->
+        <!-- You can hook into and use the Ambient Data Framework by implementing cartridges.
+                This is how a cartridge XML configuration files can be specified. -->
+        <!--
+                    <Cartridge File="cd_ambient_cartridge_conf.xml"/>
+                -->
+        <Cartridge File="cd_webservice_preview_cartridge.xml" Category="SYSTEM"/>
+        <!--
+                    IMPORTANT: The cd_webservice_preview_cartridge.xml without category should be ALSO added if the client is REST extension-web.
+                    The original one (with category) should be preserved.
+                -->
+		<Cartridge File="cd_webservice_preview_cartridge.xml"/>
+        <!--
+                <Cartridge File="footprint_cartridge_conf.xml"/>
+                -->
+    </Cartridges>
+    <!-- Cookies settings -->
+    <!--
+          <Cookies>
+              <CookieClaim DefaultValue="true" Name="CookieClaim"/>
+              <Cookie Type="Tracking" Name="myTrackingCookie" Path="/"/>
+              <Cookie Type="Session" Name="mySessionCookie" Path="/"/>
+              <Cookie Type="ADF" Name="TAFContext" />
+          </Cookies>
+          -->
+    <!-- The claim store provider that will be used. -->
+    <!-- For Java -->
+    <!--<ClaimStoreProvider>com.tridion.ambientdata.claimstore.providers.JavaClaimStoreProvider</ClaimStoreProvider>-->
+    <!-- For .NET -->
+    <!--<ClaimStoreProvider>com.tridion.ambientdata.claimstore.providers.DotNetClaimStoreProvider</ClaimStoreProvider>-->
+</Configuration>

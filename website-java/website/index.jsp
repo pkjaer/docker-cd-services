@@ -79,6 +79,9 @@
 							<li class="nav-item">
 								<a class="pure-button" href="#components">Components</a>
 							</li>
+							<li class="nav-item">
+								<a class="pure-button" href="/claimstore.jsp">ADF</a>
+							</li>
 						</ul>
 					</nav>
 				</div>
@@ -87,8 +90,9 @@
 			<div class="content pure-u-1 pure-u-md-3-4">
 				<div>
 					<div class="posts">
-						<a name="pages" />
-						<h1 class="content-subhead">Pages</h1>
+						<a name="pages">
+							<h1 class="content-subhead">Pages</h1>
+						</a>
 
 						<section class="post">
 							<header class="post-header">
@@ -103,8 +107,9 @@
 						</section>
 					</div>
 					<div class="posts">
-						<a name="components" />
-						<h1 class="content-subhead">Components</h1>
+						<a name="components">
+							<h1 class="content-subhead">Components</h1>
+						</a>
 
 						<section class="post">
 							<header class="post-header">
