@@ -1,4 +1,4 @@
-<%@page language="java" contentType="image/jpeg" import="java.io.*, javax.servlet.http.HttpServletResponse, com.tridion.content.BinaryFactory, com.tridion.data.BinaryData" %>
+<%@page language="java" contentType="image/jpeg" import="java.io.*, java.util.Date, javax.servlet.http.HttpServletResponse, com.tridion.content.BinaryFactory, com.tridion.data.BinaryData" %>
 <%!
 	public boolean isEmpty(String input) {
 		return "".equals(input) || input == null;
@@ -19,6 +19,10 @@
 		if (inputStream == null) {
 			return;
 		}
+		
+		response.setHeader("Cache-Control", "private");
+		Date tomorrow = new Date(System.currentTimeMillis() + 1000L * 60L * 60L * 24L);
+		response.setDateHeader("Expires", tomorrow.getTime());
 		
 		OutputStream outputStream = response.getOutputStream();
 
