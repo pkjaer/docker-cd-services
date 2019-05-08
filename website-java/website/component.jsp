@@ -62,10 +62,7 @@
 					<nav class="nav">
 						<ul class="nav-list">
 							<li class="nav-item">
-								<a class="pure-button" href="/#pages">Pages</a>
-							</li>
-							<li class="nav-item">
-								<a class="pure-button" href="/#components">Components</a>
+								<a class="pure-button" href="/">Back to home</a>
 							</li>
 						</ul>
 					</nav>

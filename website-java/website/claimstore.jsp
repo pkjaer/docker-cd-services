@@ -36,7 +36,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Available Content</title>
+		<title>ADF Claim Store</title>
 		<link rel="stylesheet" href="css/pure/pure-min.css" integrity="sha384-" crossorigin="anonymous">
 		
 		<!--[if lte IE 8]>

@@ -10,7 +10,20 @@
         <Path>/token.svc</Path>
     </ExcludedPaths>
 
-    <!-- Claims for forwarding on to the Content Services -->
+	<!-- Claims accepted for forwarding -->
+	<GloballyAcceptedClaims CookieName="TAFContext">
+		<Claim Uri="taf:session:preview:preview_session"/>
+		<Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:browser"/>
+		<Claim Uri="taf:claim:ambientdata:footprintcartridge:acceptlanguage"/>
+		<Claim Uri="taf:claim:ambientdata:footprintcartridge:recurringvisitor"/>
+		<Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:os"/>
+		<Claim Uri="taf:claim:ambientdata:footprintcartridge:searchquery"/>
+		<Claim Uri="taf:claim:ambientdata:sessioncartridge:session:lifetime"/>
+		<Claim Uri="taf:claim:ambientdata:sessioncartridge:refererdomain"/>
+		<Claim Uri="taf:test:large:value"/>
+	</GloballyAcceptedClaims>
+
+	<!-- Claims for forwarding on to the Content Services -->
     <ForwardedClaims CookieName="TAFContext">
         <Claim Uri="taf:session:preview:preview_session"/>
         <Claim Uri="taf:claim:ambientdata:sessioncartridge:useragent:browser"/>
@@ -20,7 +33,7 @@
         <Claim Uri="taf:claim:ambientdata:footprintcartridge:searchquery"/>
         <Claim Uri="taf:claim:ambientdata:sessioncartridge:session:lifetime"/>
         <Claim Uri="taf:claim:ambientdata:sessioncartridge:refererdomain"/>
-		<Claim Uri="taf:claim:audiencemanager:contact:segments"/>
+        <Claim Uri="taf:claim:audiencemanager:contact:segments"/>
     </ForwardedClaims>
 
     <!-- Cookies settings -->
